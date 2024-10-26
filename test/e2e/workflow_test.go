@@ -46,6 +46,15 @@ spec:
           - -c
           - |
            kubectl get cm 
+        volumeMounts:
+          - name: sa-token
+            mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+            readOnly: true
+      volumes:
+       - name: sa-token
+         secret:
+           defaultMode: 420
+           secretName: get-cm.service-account-token
 `).
 		When().
 		SubmitWorkflow().
@@ -78,6 +87,15 @@ spec:
           - sh
         source:
           kubectl get cm 
+        volumeMounts:
+          - name: sa-token
+            mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+            readOnly: true
+      volumes:
+       - name: sa-token
+         secret:
+           defaultMode: 420
+           secretName: get-cm.service-account-token
 `).
 		When().
 		SubmitWorkflow().
